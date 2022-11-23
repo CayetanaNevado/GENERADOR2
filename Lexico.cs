@@ -31,11 +31,11 @@ namespace Generador
             log = new StreamWriter("c.Log");
             log.AutoFlush = true;
 
-            lenguaje = new StreamWriter("C:\\Generador\\Lenguaje.cs");
-            log.AutoFlush = true;
+            lenguaje = new StreamWriter("C:\\Users\\ACER\\Desktop\\5 Semestre\\Lenguajes Automatas 2\\Generico\\Lenguaje.cs");
+            lenguaje.AutoFlush = true;
             
-            programa = new StreamWriter("C:\\Generador\\Program.cs");
-            log.AutoFlush = true;
+            programa = new StreamWriter("C:\\Users\\ACER\\Desktop\\5 Semestre\\Lenguajes Automatas 2\\Generico\\Program.cs");
+            programa.AutoFlush = true;
 
             log.WriteLine("Archivo: c.gram");
             log.WriteLine(DateTime.Now);
@@ -59,11 +59,11 @@ namespace Generador
             log.WriteLine("Archivo: " + nombre);
             log.WriteLine(DateTime.Now);
 
-            lenguaje = new StreamWriter("C:\\Generador\\Lenguaje.cs");
-            log.AutoFlush = true;
+            lenguaje = new StreamWriter("C:\\Users\\ACER\\Desktop\\5 Semestre\\Lenguajes Automatas 2\\Generico\\Lenguaje.cs");
+            lenguaje.AutoFlush = true;
             
-            programa = new StreamWriter("C:\\Generador\\Program.cs");
-            log.AutoFlush = true;
+            programa = new StreamWriter("C:\\Users\\ACER\\Desktop\\5 Semestre\\Lenguajes Automatas 2\\Generico\\Program.cs");
+            programa.AutoFlush = true;
 
 
             if (File.Exists(nombre))

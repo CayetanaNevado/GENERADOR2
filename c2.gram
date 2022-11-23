@@ -1,3 +1,5 @@
-Gramatica: c
+Gramatica: cplusplus
     Program -> 
     Librerias -> 
+    Variables ->
+    ListaIdentificadores ->
