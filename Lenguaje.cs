@@ -13,15 +13,16 @@ namespace Generador
 {
     public class Lenguaje : Sintaxis, IDisposable
     {
-
+        int tabular;
         string primeraProduccion;
         public Lenguaje(string nombre) : base(nombre)
         {
-
+            tabular =0;
             primeraProduccion = "";
         }
         public Lenguaje()
         {
+            tabular=0;
             primeraProduccion = "";
         }
         public void Dispose()
@@ -36,8 +37,8 @@ namespace Generador
             Programa(primeraProduccion);
             cabeceraLenguaje();
             listaProducciones();
-            lenguaje.WriteLine("\t}");
-            lenguaje.WriteLine("}");
+           tabularCodigo("}");
+            tabularCodigo("}");
         }
         private void Programa(string produccionPrincipal)
         {
@@ -72,24 +73,24 @@ namespace Generador
         
         private void cabeceraLenguaje()
         {
-            lenguaje.WriteLine("using System;");
-            lenguaje.WriteLine("using System.Collections.Generic;");
+            tabularCodigo("using System;");
+            tabularCodigo("using System.Collections.Generic;");
 
-            lenguaje.WriteLine("namespace Generico");
-            lenguaje.WriteLine("{");
-            lenguaje.WriteLine("\tpublic class Lenguaje : Sintaxis, IDisposable");
-            lenguaje.WriteLine("\t{");
-            lenguaje.WriteLine("\t\tpublic Lenguaje(string nombre) : base(nombre)");
-            lenguaje.WriteLine("\t\t{");
-            lenguaje.WriteLine("\t\t}");
+            tabularCodigo("namespace Generico");
+            tabularCodigo("{");
+            tabularCodigo("public class Lenguaje : Sintaxis, IDisposable");
+            tabularCodigo("{");
+            tabularCodigo("public Lenguaje(string nombre) : base(nombre)");
+            tabularCodigo("{");
+            tabularCodigo("}");
 
-            lenguaje.WriteLine("\t\tpublic Lenguaje()");
-            lenguaje.WriteLine("\t\t{");
-            lenguaje.WriteLine("\t\t}");
-            lenguaje.WriteLine("\t\tpublic void Dispose()");
-            lenguaje.WriteLine("\t\t{");
-            lenguaje.WriteLine("\t\t\tcerrar();");
-            lenguaje.WriteLine("\t\t}");
+            tabularCodigo("public Lenguaje()");
+            tabularCodigo("{");
+            tabularCodigo("}");
+            tabularCodigo("public void Dispose()");
+            tabularCodigo("{");
+            tabularCodigo("cerrar();");
+            tabularCodigo("}");
         }
         private void cabecera()
         {
@@ -100,13 +101,13 @@ namespace Generador
         }
         private void listaProducciones()
         {
-            lenguaje.WriteLine("\t\tprivate void " + getContenido() + "()");
-            lenguaje.WriteLine("\t\t{");
+            tabularCodigo("private void " + getContenido() + "()");
+            tabularCodigo("{");
             match(Tipos.SNT);
             match(Tipos.Produce);
             Simbolos();
             match(Tipos.FinProduccion);
-            lenguaje.WriteLine("\t\t}");
+            tabularCodigo("}");
 
             if (!FinArchivo())
             {
@@ -117,17 +118,17 @@ namespace Generador
         {
             if (esTipo(getContenido()))
             {
-                lenguaje.WriteLine("\t\t\tmatch(Tipos." + getContenido() + ");");
+                tabularCodigo("match(Tipos." + getContenido() + ");");
                 match(Tipos.SNT);
             }
             else if (getClasificacion() == Tipos.ST)
             {
-                lenguaje.WriteLine("\t\t\tmatch(\"" + getContenido() + "\");");
+                tabularCodigo("match(\"" + getContenido() + "\");");
                 match(Tipos.ST);
             }
             else if (getClasificacion() == Tipos.SNT)
             {
-                lenguaje.WriteLine("\t\t\t" + getContenido() + "();");
+                tabularCodigo(getContenido() + "();");
                 match(Tipos.SNT);
             }
             if (getClasificacion() != Tipos.FinProduccion)
@@ -162,6 +163,29 @@ namespace Generador
                     return true;
             }
             return false;
+        }
+
+        private void tabularCodigo(string codigo)
+        {
+            for(int i =0; i<codigo.Length; i++)
+            {
+                if(codigo[i] == '}')
+                {
+                    tabular--;
+                }
+            }
+            for(int i =0; i<tabular; i++)
+            {
+                lenguaje.Write("\t");
+            }
+             for(int i =0; i<codigo.Length; i++)
+            {
+                 if(codigo[i] == '{')
+                {
+                    tabular++;
+                }
+            }
+            lenguaje.WriteLine(codigo);
         }
 
     }
