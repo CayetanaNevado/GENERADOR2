@@ -5,29 +5,47 @@ using System.Collections.Generic;
 //                 {Incrementa un tabulador,} decrementa un tabulador
 //Requerimiento 2: Declarar un atributo primeraProduccion de tipo string 
 //                 y actualizarlo con la primera produccion de la gramatica
-//Requerimiento 3:La primera produccion es puclica y el resto privada 
+//Requerimiento 3:La primera produccion es publica y el resto privada 
 //Requerimiento 4:El constructor lexico parametrico debe validar que la extension del archivo compilar
 //                sea .gen y si no levantar una excepcion.
 //Requerimiento 5: Resolver la ambiguedadd de st y snt.
+//                 Recorrer linea por el linea el archivo gram para extraer el nombre de cada produccion.
+//Requerimiento 6: Agregar el parentesis izquierdo y el parentesis derecho escapados en la matriz
+//                 de transiciones. 
+//Requerimiento 7: Implementar el or y la cerradura epsilon
+//
 namespace Generador
 {
     public class Lenguaje : Sintaxis, IDisposable
     {
         int tabular;
         string primeraProduccion;
+        List <string> listaSNT;
         public Lenguaje(string nombre) : base(nombre)
         {
-            tabular =0;
+            listaSNT = new List<string>();
+            tabular = 0;
             primeraProduccion = "";
         }
         public Lenguaje()
         {
-            tabular=0;
+            listaSNT = new List<string>();
+            tabular = 0;
             primeraProduccion = "";
         }
         public void Dispose()
         {
             cerrar();
+        }
+        private bool esSNT(string contenido)
+        {
+            //return true;
+            return listaSNT.Contains(contenido);
+        }
+        private void agregarSNT (string contenido)
+        {
+            //Requerimiento 6
+            listaSNT.Add(contenido);
         }
 
         public void gramatica()
@@ -37,7 +55,7 @@ namespace Generador
             Programa(primeraProduccion);
             cabeceraLenguaje();
             listaProducciones();
-           tabularCodigo("}");
+            tabularCodigo("}");
             tabularCodigo("}");
         }
         private void Programa(string produccionPrincipal)
@@ -67,10 +85,7 @@ namespace Generador
             programa.WriteLine("\t\t}");
             programa.WriteLine("\t}");
             programa.WriteLine("}");
-
-
         }
-        
         private void cabeceraLenguaje()
         {
             tabularCodigo("using System;");
@@ -96,14 +111,14 @@ namespace Generador
         {
             match("Gramatica");
             match(":");
-            match(Tipos.SNT);
+            match(Tipos.ST);
             match(Tipos.FinProduccion);
         }
         private void listaProducciones()
         {
             tabularCodigo("private void " + getContenido() + "()");
             tabularCodigo("{");
-            match(Tipos.SNT);
+            match(Tipos.ST);
             match(Tipos.Produce);
             Simbolos();
             match(Tipos.FinProduccion);
@@ -116,22 +131,31 @@ namespace Generador
         }
         private void Simbolos()
         {
-            if (esTipo(getContenido()))
+            if(getContenido() == "(")
+            {
+                match("(");
+                tabularCodigo("if ()");
+                tabularCodigo("{");
+                Simbolos();
+                match(")");
+                tabularCodigo("}");
+            }
+            else if (esTipo(getContenido()))
             {
                 tabularCodigo("match(Tipos." + getContenido() + ");");
-                match(Tipos.SNT);
+                match(Tipos.ST);
+            }
+            else if (esSNT(getContenido()))
+            {
+                tabularCodigo(getContenido() + "();");
+                match(Tipos.ST);
             }
             else if (getClasificacion() == Tipos.ST)
             {
                 tabularCodigo("match(\"" + getContenido() + "\");");
                 match(Tipos.ST);
             }
-            else if (getClasificacion() == Tipos.SNT)
-            {
-                tabularCodigo(getContenido() + "();");
-                match(Tipos.SNT);
-            }
-            if (getClasificacion() != Tipos.FinProduccion)
+            if (getClasificacion() != Tipos.FinProduccion && getContenido() != ")")
             {
                 Simbolos();
             }

@@ -1,5 +1,6 @@
 Gramatica: cplusplus
-    Program -> 
-    Librerias -> 
-    Variables ->
-    ListaIdentificadores ->
+    Program -> #Identificador, Numero Librerias
+    Librerias -> #include<Identificador.h>
+    Variables -> (Identificador)
+    ListaIdentificadores -> Numero
+    
