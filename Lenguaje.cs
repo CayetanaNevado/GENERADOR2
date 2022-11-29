@@ -20,6 +20,7 @@ namespace Generador
     {
         int tabular;
         string primeraProduccion;
+        int contador = 1;
         List <string> listaSNT;
         public Lenguaje(string nombre) : base(nombre)
         {
@@ -116,7 +117,16 @@ namespace Generador
         }
         private void listaProducciones()
         {
+            //Requerimiento 3:
+            if(contador == 1)
+            {
+                tabularCodigo("public void " + getContenido() + "()");
+                contador++;
+            }
+            else
+            {
             tabularCodigo("private void " + getContenido() + "()");
+            }
             tabularCodigo("{");
             match(Tipos.ST);
             match(Tipos.Produce);
