@@ -45,8 +45,20 @@ namespace Generador
         }
         private void agregarSNT (string contenido)
         {
-            //Requerimiento 6
-            listaSNT.Add(contenido);
+            //Requerimiento 5
+            StreamWriter snt = new StreamWriter("c2.gram");
+            string linea;
+            //string contenido;
+            linea = archivo.ReadLine();
+            linea = archivo.ReadLine();
+            while(linea !=null)
+            {
+                string[] line = linea.Replace("","");
+                contenido = line[0].Trim(' ');
+                agregarSNT(line[0]); 
+                linea = archivo.ReadLine();
+            }
+            //listaSNT.Add(contenido);
         }
 
         public void gramatica()
@@ -61,6 +73,10 @@ namespace Generador
         }
         private void Programa(string produccionPrincipal)
         {
+            foreach(string i in listaSNT)
+            {
+                Console.WriteLine(i);
+            }
             programa.WriteLine("using System;");
             programa.WriteLine("using System.IO;");
             programa.WriteLine("using System.Collections.Generic;");
@@ -198,7 +214,7 @@ namespace Generador
             }
             return false;
         }
-
+        //Requerimiento 1:
         private void tabularCodigo(string codigo)
         {
             for(int i =0; i<codigo.Length; i++)
