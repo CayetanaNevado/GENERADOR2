@@ -46,19 +46,18 @@ namespace Generador
         private void agregarSNT (string contenido)
         {
             //Requerimiento 5
-            StreamWriter snt = new StreamWriter("c2.gram");
-            string linea;
+            StreamReader snt = new StreamReader("c2.gram");
+            string linea = "";
             //string contenido;
-            linea = archivo.ReadLine();
-            linea = archivo.ReadLine();
+            linea = snt.ReadLine();//si el archivo esta vacio
+            linea = snt.ReadLine();
             while(linea !=null)
             {
-                string[] line = linea.Replace("","");
-                contenido = line[0].Trim(' ');
-                agregarSNT(line[0]); 
-                linea = archivo.ReadLine();
+                string line =linea.Replace("    ", "");
+                string []separador = line.Split(' ');
+                listaSNT.Add(separador[0]);
+                linea = snt.ReadLine();
             }
-            //listaSNT.Add(contenido);
         }
 
         public void gramatica()
@@ -92,7 +91,7 @@ namespace Generador
             programa.WriteLine("\t\t\t\tusing (Lenguaje a = new Lenguaje())");
             programa.WriteLine();
             programa.WriteLine("\t\t\t\t{");
-            programa.WriteLine("\t\t\t\t\ta." + produccionPrincipal + "()");
+            programa.WriteLine("\t\t\t\t\ta." + produccionPrincipal + "();");
             programa.WriteLine("\t\t\t\t}");
             programa.WriteLine("\t\t\t}");
             programa.WriteLine("\t\t\tcatch (Exception e)");
@@ -226,7 +225,7 @@ namespace Generador
             }
             for(int i =0; i<tabular; i++)
             {
-                lenguaje.Write("\t");
+                lenguaje.Write("    ");
             }
              for(int i =0; i<codigo.Length; i++)
             {

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ACER\\Desktop\\5 Semestre\\Lenguajes Automatas 2\\Generador\\Generador.csproj": {}
+    "C:\\Users\\Dell\\Desktop\\Lenguajes Automatas 2\\Generador\\Generador.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ACER\\Desktop\\5 Semestre\\Lenguajes Automatas 2\\Generador\\Generador.csproj": {
+    "C:\\Users\\Dell\\Desktop\\Lenguajes Automatas 2\\Generador\\Generador.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ACER\\Desktop\\5 Semestre\\Lenguajes Automatas 2\\Generador\\Generador.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Desktop\\Lenguajes Automatas 2\\Generador\\Generador.csproj",
         "projectName": "Generador",
-        "projectPath": "C:\\Users\\ACER\\Desktop\\5 Semestre\\Lenguajes Automatas 2\\Generador\\Generador.csproj",
-        "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ACER\\Desktop\\5 Semestre\\Lenguajes Automatas 2\\Generador\\obj\\",
+        "projectPath": "C:\\Users\\Dell\\Desktop\\Lenguajes Automatas 2\\Generador\\Generador.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Desktop\\Lenguajes Automatas 2\\Generador\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -43,7 +43,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -52,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
