@@ -43,18 +43,17 @@ namespace Generador
             //return true;
             return listaSNT.Contains(contenido);
         }
-        private void agregarSNT (string contenido)
+        private void agregarSNT ()
         {
             //Requerimiento 5
-            StreamReader snt = new StreamReader("c2.gram");
-            string linea = "";
-            //string contenido;
-            linea = snt.ReadLine();//si el archivo esta vacio
+            StreamReader snt = new StreamReader("c2.gram");//declarando un archivo
+            string linea;
+            linea = snt.ReadLine();//leer el archivo
             linea = snt.ReadLine();
-            while(linea !=null)
+            while(linea !=null)//Recorre el archivo hasta que este no haya nada
             {
-                string line =linea.Replace("    ", "");
-                string []separador = line.Split(' ');
+                string line =linea.Replace("    ", "");//replace para que los espacios los elimine
+                string []separador = line.Split(' ');//split subdividir la cadena y se alamacena en el arreglo string
                 listaSNT.Add(separador[0]);
                 linea = snt.ReadLine();
             }
@@ -72,10 +71,7 @@ namespace Generador
         }
         private void Programa(string produccionPrincipal)
         {
-            foreach(string i in listaSNT)
-            {
-                Console.WriteLine(i);
-            }
+            agregarSNT();
             programa.WriteLine("using System;");
             programa.WriteLine("using System.IO;");
             programa.WriteLine("using System.Collections.Generic;");
@@ -156,9 +152,20 @@ namespace Generador
         }
         private void Simbolos()
         {
+            //Requerimiento 7
             if(getContenido() == "\\(")
             {
                 match("\\(");
+
+                if (esTipo(getContenido()))
+                {
+                    tabularCodigo("if (getClasificacion() == Tipos." + getContenido() + ")");
+                }
+                else
+                {
+                    tabularCodigo("if (getContenido()== \"" + getContenido() + "\")");
+                }
+
                 tabularCodigo("{");
                 Simbolos();
                 match("\\)");
@@ -213,13 +220,13 @@ namespace Generador
             return false;
         }
         //Requerimiento 1:
-        private void tabularCodigo(string codigo)
+        private void tabularCodigo(string codigo)//Recibe toda las lineas de codigo
         {
-            for(int i =0; i<codigo.Length; i++)
+            for(int i =0; i<codigo.Length; i++)//Recorrer la linea de codigo el string
             {
-                if(codigo[i] == '}')
+                if(codigo[i] == '}')//Checa si es un corchete
                 {
-                    tabular--;
+                    tabular--;//Se disminuye el contador
                 }
             }
             for(int i =0; i<tabular; i++)
