@@ -156,13 +156,12 @@ namespace Generador
         }
         private void Simbolos()
         {
-            if(getContenido() == "(")
+            if(getContenido() == "\\(")
             {
-                match("(");
-                tabularCodigo("if ()");
+                match("\\(");
                 tabularCodigo("{");
                 Simbolos();
-                match(")");
+                match("\\)");
                 tabularCodigo("}");
             }
             else if (esTipo(getContenido()))
@@ -180,7 +179,7 @@ namespace Generador
                 tabularCodigo("match(\"" + getContenido() + "\");");
                 match(Tipos.ST);
             }
-            if (getClasificacion() != Tipos.FinProduccion && getContenido() != ")")
+            if (getClasificacion() != Tipos.FinProduccion && getContenido() != "\\)")
             {
                 Simbolos();
             }

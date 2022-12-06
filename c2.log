@@ -1,17 +1,24 @@
 Archivo: c2.gram
-05/12/2022 07:18:57 p. m.
+05/12/2022 08:22:01 p. m.
 Gramatica ST
 : ST
 cplusplus ST
 
  FinProduccion
-Program ST
+Programa ST
 -> Produce
-# ST
-Identificador ST
-, ST
-Numero ST
 Librerias ST
+Variables ST
+Main ST
+
+ FinProduccion
+Main ST
+-> Produce
+TipoDato ST
+main ST
+( ST
+) ST
+BloqueInstrucciones ST
 
  FinProduccion
 Librerias ST
@@ -27,13 +34,50 @@ h ST
  FinProduccion
 Variables ST
 -> Produce
-( ST
+\( PDer
 Identificador ST
+\) PIzq
+
+ FinProduccion
+Printf ST
+-> Produce
+printf ST
+( ST
+\( PDer
+Cadena ST
+\) PIzq
 ) ST
 
  FinProduccion
-ListaIdentificadores ST
+Scanf ST
 -> Produce
-Numero ST
+scanf ST
+( ST
+\( PDer
+Cadena ST
+\) PIzq
+) ST
 
  FinProduccion
+BloqueInstrucciones ST
+-> Produce
+{ ST
+ListaInstrucciones ST
+} ST
+
+ FinProduccion
+ListaInstrucciones ST
+-> Produce
+Instruccion ST
+\( PDer
+; ST
+ListaInstrucciones ST
+\) PIzq
+
+ FinProduccion
+Instruccion ST
+-> Produce
+Printf ST
+( ST
+Scanf ST
+) ST
